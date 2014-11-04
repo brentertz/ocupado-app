@@ -1,0 +1,10 @@
+{
+  "name": "ocupado-app",
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "eventsource": "^0.1.4",
+    "lodash": "^2.4.1",
+    "request": "^2.47.0"
+  }
+}
