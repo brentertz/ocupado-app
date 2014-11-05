@@ -4,6 +4,8 @@ An OSX toolbar app build using [atom-shell](https://github.com/atom/atom-shell)
 that displays the current state of the
 [Ocupado](https://github.com/brentertz/ocupado) bathroom occupancy detector.
 
+![screenshot](screenshot.png)
+
 ### Installation
 
 Clone the Github repo and install dependencies.
