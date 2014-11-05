@@ -9,6 +9,9 @@ module.exports = function(grunt) {
     },
 
     'clean': {
+      options: {
+        force: true
+      },
       src: [
         './build/atom-shell/Atom.app/Contents/Resources/app',
         './dist/*'
