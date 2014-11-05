@@ -7,10 +7,13 @@ var request = require('request');
 var _ = require('lodash');
 
 var app = require('app');
+var ipc = require('ipc');
+var BrowserWindow = require('browser-window');
 var Tray = require('tray');
 var Menu = require('menu');
 var MenuItem = require('menu-item');
 
+var onlineStatusWindow;
 var tray;
 var eventSource;
 var state = 'unknown';
@@ -99,6 +102,15 @@ function reconnect() {
   }
 }
 
+function disconnect() {
+  if (eventSource) {
+    eventSource.close();
+    eventSource = null;
+  }
+  state = 'unknown';
+  updateTray();
+}
+
 function getCurrentState() {
   request(apiStateUrl, function(error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -109,7 +121,20 @@ function getCurrentState() {
   }.bind(this));
 }
 
+function createOnlineStatusWindow() {
+  onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false });
+  onlineStatusWindow.loadUrl('file://' + path.join(__dirname, '/online-status.html'));
+}
+
+ipc.on('onlineStatusMessage', function(event, status) {
+  if (status === 'online') {
+    connect();
+  } else {
+    disconnect();
+  }
+});
+
 app.on('ready', function() {
   createTray();
-  connect();
+  createOnlineStatusWindow();
 });

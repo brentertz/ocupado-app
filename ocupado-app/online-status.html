@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <script>
+      var ipc = require('ipc');
+      var updateOnlineStatus = function() {
+        ipc.send('onlineStatusMessage', navigator.onLine ? 'online' : 'offline');
+      };
+
+      window.addEventListener('online',  updateOnlineStatus);
+      window.addEventListener('offline',  updateOnlineStatus);
+
+      updateOnlineStatus();
+    </script>
+  </body>
+</html>
