@@ -40,6 +40,10 @@ module.exports = function(grunt) {
           'cp -R ./build/atom-shell ./dist/ocupado/',
           'mv ./dist/ocupado/Atom.app ./dist/ocupado/Ocupado.app',
           'cp ./dist/ocupado/Ocupado.app/Contents/Resources/app/assets/atom.icns ./dist/ocupado/Ocupado.app/Contents/Resources',
+          'plist=`pwd`/dist/ocupado/Ocupado.app/Contents/Info.plist',
+          'defaults write $plist CFBundleDisplayName Ocupado',
+          'defaults write $plist CFBundleName Ocupado',
+          'plutil -convert xml1 $plist',
           'rm -f ./dist/ocupado/LICENSE ./dist/ocupado/version',
         ].join('&&')
       }
